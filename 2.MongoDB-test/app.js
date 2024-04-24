@@ -75,9 +75,10 @@ const uri = 'mongodb://localhost:27017/'
 // 3. 주소를 연결한고 만든다. new MongoClient(주소)
 const client = new MongoClient(uri);
 
+const database = client.db("testDB");
+
 async function test() {
     // 4. 데이터 베이스를 만든다.
-    const database = client.db("testDB");
 
     // 5. 컬럼을 만든다, 컬럼 = 컬렉션
     const inventory = database.collection('inventory');
@@ -129,7 +130,42 @@ async function test() {
     // console.log(await inventory.find({ status: "A", qty: 50 }).toArray());
 
     // 13. 쿼리 $in 사용하기 status가 A 또는 B 인 데이터
-    console.log(await inventory.find({ status: { $in: ["A", "B"] } }).toArray());
+    // console.log(await inventory.find({ status: { $in: ["A", "B"] } }).toArray());
+
+    // 14. status가 A qty가 30보다 작은 데이터
+    // console.log(await inventory.find({ status: "A", qty: { $lt: 30 } }).toArray());
+    // console.log(await inventory.find({ $or: [{ status: "D", qty: { $gt: 40 } }] }).toArray());
+
+    // 15. size에 uom 가 in 데이터
+    // console.log(await inventory.find({ 'size.uom': 'in' }).toArray())
+
+    // 16. size에 h가 10을 초과하는 데이터
+    // console.log(await inventory.find({ 'size.h': { $gt: 10 } }).toArray());
+}
+// test();
+
+// 17. students 컬렉션에 해당 데이터를 넣자.
+function studentTest() {
+    const studentDB = database.collection("students");
+
+    // studentDB.insertMany([
+    //     { _id: 1, test1: 95, test2: 92, test3: 90, modified: new Date("01/05/2020") },
+    //     { _id: 2, test1: 98, test2: 100, test3: 102, modified: new Date("01/05/2020") },
+    //     { _id: 3, test1: 95, test2: 110, modified: new Date("01/04/2020") }
+    // ])
+
+    // 18. id 3 인 학생에게 test3 의 점수를 넣어준다.
+    // studentDB.updateOne({ _id: 3 }, { $set: { test3: 98 } });
+
+    // 19. 모든 test1 점수를 0으로 하고, status:"modified"를 추가한다.
+    // studentDB.updateMany({}, { $set: { test1: 0, status: "modified" } });
+
+    // 20. test가 92점인 학생을 삭제한다.
+    // const deleteStudent = studentDB.deleteOne({ test2: 92 });
+    // console.log(deleteStudent);
+
+    // test1의 점수가 0인 학생을 삭제한다.
+    // studentDB.deleteMany({ test1: 0 });
 }
 
-test();
+studentTest();
