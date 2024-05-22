@@ -5,8 +5,12 @@ const bodyParser = require("body-parser");
 // 라우터를 가지고 온다.
 const indexRouter = require("./routes/index");
 
+const cors = require("cors");
+
 const app = express();
 app.use(bodyParser.json());
+
+app.use(cors());
 
 // 주소 앞에 /api라고 붙으면 indexRouter가 작동된다.
 app.use("/api", indexRouter);
