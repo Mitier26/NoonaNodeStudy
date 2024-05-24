@@ -21,9 +21,9 @@ app.use("/api", indexRouter);
 // /api -> index -> tasks -> router
 
 // 이것은 로컬 주소, Altass 를 이용하면서 필요없어졌다.
-// const mongoURI = "mongodb://localhost:27017/todo-demo";
+const mongoURI = "mongodb://localhost:27017/todo-demo";
 // env를 사용해야하는데 이것은 설치해 주어야한다 npm i dotenv
-const mongoURI = MONGODB_URI_PROD;
+// const mongoURI = MONGODB_URI_PROD;
 
 // 연결
 mongoose.connect(mongoURI, { useNewUrlParser: true }).then(() => {

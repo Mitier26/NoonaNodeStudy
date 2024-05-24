@@ -35,7 +35,6 @@ function App() {
   }
 
   const deleteItem = async (id) => {
-    console.log("aaf'");
     try {
       console.log(id);
       const response = await api.delete(`/tasks/${id}`);
