@@ -40,6 +40,11 @@ taskController.updateTask = async (req, res) => {
         const fields = Object.keys(req.body);
         fields.map((item) => (task[item] = req.body[item]));
         await task.save();
+
+        // const taskResult = await Task.updateOne(
+        //     { _id: req.params.id },
+        //     { $set: { isComplete: !task.isComplete } }
+        // );
         res.status(200).json({ status: "성공", data: task });
     } catch (error) {
         res.status(400).json({ status: "실패", error });
@@ -49,6 +54,7 @@ taskController.updateTask = async (req, res) => {
 taskController.deleteTask = async (req, res) => {
     try {
         const deleteItem = await Task.findByIdAndDelete(req.params.id);
+        // const deleteTask = await Task.deleteOne({ _id: req.params.id });
         res.status(200).json({ status: "성공", data: deleteItem });
     } catch (error) {
         res.status(400).json({ status: "실패", error });
