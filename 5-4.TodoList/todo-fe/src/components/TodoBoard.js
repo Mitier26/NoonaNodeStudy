@@ -5,7 +5,7 @@ const TodoBoard = ({ todoList, deleteItem, toggleComplete }) => {
   return (
     <div>
       <h2>Todo List</h2>
-      {todoList.length > 0 && todoList.map((item, index) => (
+      {todoList?.length > 0 && todoList.map((item, index) => (
         <TodoItem item={item}
           key={index}
           deleteItem={deleteItem}
