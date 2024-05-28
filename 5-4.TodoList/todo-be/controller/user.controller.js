@@ -1,6 +1,6 @@
 const User = require("../model/User");
 // 암호화를 위한 라이브러리 npm i bcrypt
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const saltRounds = 10;      // 몇 번 암호화 하는 가
 
 const userController = {}
