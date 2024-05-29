@@ -6,8 +6,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import api from "../utils/api";
 
 const LoginPage = ({ user, setUser }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('hong@gmail.com');
+  const [password, setPassword] = useState('123');
   const [error, setError] = useState('');
   // const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -45,12 +45,12 @@ const LoginPage = ({ user, setUser }) => {
         <h1>로그인</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" onChange={(event) => setEmail(event.target.value)} />
+          <Form.Control type="email" value={email} placeholder="Enter email" onChange={(event) => setEmail(event.target.value)} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
+          <Form.Control type="password" value={password} placeholder="Password" onChange={(event) => setPassword(event.target.value)} />
         </Form.Group>
         <div className="button-box">
           <Button type="submit" className="button-primary">
