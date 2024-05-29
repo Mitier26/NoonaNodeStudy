@@ -95,3 +95,16 @@ button{
 .red-error {
   color: red;
 }
+
+.logout{
+  background:linear-gradient(90deg, lightblue, rgb(234, 159, 159));
+  padding: 15px;
+  color: white;
+  font-size: 24px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.logout span:hover {
+  cursor: pointer;
+}

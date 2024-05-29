@@ -26,7 +26,9 @@ taskController.createTask = async (req, res) => {
 
 taskController.getTask = async (req, res) => {
     try {
-        const taskList = await Task.find({}).populate("author");
+        const { userId } = req;
+
+        const taskList = await Task.find({ author: userId }).populate("author");
         // populate 다른 컬렉션에 있는 것을 가지고 온다 Join
         // 왜래키를 이용해 Join 한다.
         // data를 보낼 때 author 라는 객체를 만들고 유저정보를 추가로 보낸다.

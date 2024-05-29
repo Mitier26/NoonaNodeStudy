@@ -9,9 +9,10 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import api from '../utils/api'
 
-function App() {
+function App({ user, setUser }) {
     const [todoList, setTodoList] = useState([]);
     const [todoValue, setTodoValue] = useState('');
+
 
     const getTasks = async () => {
         const response = await api.get('/tasks');
@@ -64,8 +65,15 @@ function App() {
         getTasks();
     }, []);
 
+    const logout = () => {
+        console.log("들어오니?");
+        sessionStorage.removeItem("token");
+        setUser(null);
+    }
+
     return (
         <Container>
+            <div className="logout"><span onClick={logout}>로그아웃</span></div>
             <Row className="add-item-row">
                 <Col xs={12} sm={10}>
                     <input
