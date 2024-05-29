@@ -29,7 +29,9 @@ const userSchema = Schema({
 userSchema.methods.toJSON = function () {
     const obj = this._doc;
     delete obj.password;        // 패스워드를 제거한다.
-
+    delete obj.updateAt;
+    // delete obj.createdAt;
+    delete obj.__v;
     return obj;
 }
 

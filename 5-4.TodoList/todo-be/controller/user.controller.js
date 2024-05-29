@@ -55,4 +55,19 @@ userController.loginWithEmail = async (req, res) => {
     }
 }
 
+
+userController.getUser = async (req, res) => {
+    try {
+        const { userId } = req;
+        // auth.controller 에서 req.userId = payload._id; 이것으로 보낸 것이 req에 있다.
+        const user = await User.findById(userId);
+        if (!user) {
+            throw new Error("유저를 찾을 수 없다");
+        }
+        res.status(200).json({ status: "성공", user });
+    } catch (error) {
+        res.status(400).json({ status: "유저 토큰 실패", message: error.message });
+    }
+}
+
 module.exports = userController;
