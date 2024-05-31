@@ -4,10 +4,15 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 require("dotenv").config();
+
+const indexRouter = require("./routes/index");
+
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use("/api", indexRouter);
 
 const mongoURI = process.env.LOCAL_DB_ADDRESS;
 
