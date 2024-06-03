@@ -26,7 +26,6 @@ authController.loginWithEmail = async (req, res) => {
 authController.authenticate = async (req, res, next) => {
     try {
         const tokenString = req.headers.authorization;
-        console.log('ttttt', tokenString);
         if (!tokenString) throw new Error("토큰을 찾을 수 없다.");
 
         const token = tokenString.replace("Bearer ", "");
@@ -37,6 +36,21 @@ authController.authenticate = async (req, res, next) => {
         next();
     } catch (error) {
         res.status(400).json({ status: "토큰실패", error: error.message });
+    }
+}
+
+authController.checkAdminPermission = async (req, res, next) => {
+    try {
+        const { userId } = req;
+
+        const user = await User.findById(userId);
+
+        if (user.level !== "admin") throw new Error("어드민 아님");
+
+        next();
+
+    } catch (error) {
+        res.status(400).json({ status: "어드민 체크 실패", error: error.message });
     }
 }
 
