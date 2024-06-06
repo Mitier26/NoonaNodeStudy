@@ -37,4 +37,19 @@ productController.getProducts = async (req, res) => {
     }
 };
 
+productController.updateProduct = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const { sku, name, size, image, price, description, category, stock, status } = req.body;
+        const product = await Product.findByIdAndUpdate({ _id: productId }, { sku, name, size, image, price, description, category, stock, status }, { new: true });
+
+        if (!product) throw new Error("해당 상품이 없다.")
+
+        res.status(200).json({ status: "상품수정 성공", data: product });
+
+    } catch (error) {
+        res.status(400).json({ status: "상품수정 실패", error: error.message })
+    }
+}
+
 module.exports = productController;
