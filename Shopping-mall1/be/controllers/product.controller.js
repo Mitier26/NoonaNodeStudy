@@ -42,7 +42,6 @@ productController.updateProduct = async (req, res) => {
         const productId = req.params.id;
         const { sku, name, size, image, price, description, category, stock, status } = req.body;
         const product = await Product.findByIdAndUpdate({ _id: productId }, { sku, name, size, image, price, description, category, stock, status }, { new: true });
-
         if (!product) throw new Error("해당 상품이 없다.")
 
         res.status(200).json({ status: "상품수정 성공", data: product });

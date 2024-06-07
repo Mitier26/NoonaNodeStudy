@@ -101,9 +101,8 @@ const Navbar = ({ user }) => {
             <div onClick={() => navigate("/cart")} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
-                <span style={{ cursor: "pointer" }}>{`쇼핑백(${
-                  cartItemCount || 0
-                })`}</span>
+                <span style={{ cursor: "pointer" }}>{`쇼핑백(${cartItemCount || 0
+                  })`}</span>
               )}
             </div>
             <div
