@@ -20,6 +20,14 @@ const ProductAll = () => {
   })
 
   useEffect(() => {
+    const params = Object.fromEntries([...query]);
+    setSearchQuery({
+      page: params.page || 1,
+      name: params.name || "",
+    });
+  }, [query]);
+
+  useEffect(() => {
     dispatch(productActions.getProductList({ ...searchQuery }));
   }, [query]);
 
