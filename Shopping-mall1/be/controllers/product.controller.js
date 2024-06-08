@@ -51,4 +51,28 @@ productController.updateProduct = async (req, res) => {
     }
 }
 
+productController.deleteProduct = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const product = await Product.findByIdAndUpdate(
+            { _id: productId }, { isDeleted: true }
+        );
+        if (!product) throw new Error("해당 상품이 없다");
+        res.status(200).json({ status: "상품삭제 성공" });
+    } catch (error) {
+        res.status(400).json({ status: "상품삭제 실패", error: error.message });
+    }
+}
+
+productController.getProductById = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const product = await Product.findById(productId);
+        if (!product) throw new Error("No item found");
+        res.status(200).json({ status: "success", data: product });
+    } catch (error) {
+        return res.status(400).json({ status: "fail", error: error.message });
+    }
+};
+
 module.exports = productController;
