@@ -29,7 +29,7 @@ const ProductAll = () => {
 
   useEffect(() => {
     dispatch(productActions.getProductList({ ...searchQuery }));
-  }, [query]);
+  }, [searchQuery]);
 
   useEffect(() => {
     if (searchQuery.name === "") {
