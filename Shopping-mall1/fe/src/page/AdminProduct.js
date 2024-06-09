@@ -97,6 +97,7 @@ const AdminProduct = () => {
           deleteItem={deleteItem}
           openEditForm={openEditForm}
         />
+
         <ReactPaginate
           nextLabel="next >"
           onPageChange={handlePageClick}

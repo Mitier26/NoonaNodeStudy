@@ -7,7 +7,12 @@ require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://noona-mall.netlify.app', // 허용할 도메인
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // 허용할 HTTP 메서드
+    credentials: true, // 자격 증명 허용
+}));
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
