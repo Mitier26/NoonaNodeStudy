@@ -1,3 +1,4 @@
+const { populate } = require("dotenv");
 const Cart = require("../models/Cart");
 
 const cartController = {}
@@ -27,6 +28,25 @@ cartController.addItemToCart = async (req, res) => {
 
         res.status(200).json({ status: "카트 등록 성공", data: cart, cartItemQty: cart.items.length });
 
+    } catch (error) {
+        res.status(400).json({ status: "실패", error: error.message });
+    }
+}
+
+cartController.getCart = async (req, res) => {
+
+    try {
+        const { userId } = req;
+        const cart = await Cart.findOne({ userId }).populate(
+            {
+                path: 'items',
+                populate: {
+                    path: 'productId',
+                    model: "Product",
+                }
+            }
+        );
+        res.status(200).json({ status: "성공", data: cart.items })
     } catch (error) {
         res.status(400).json({ status: "실패", error: error.message });
     }
