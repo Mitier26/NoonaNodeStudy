@@ -44,8 +44,6 @@ const Navbar = ({ user }) => {
     dispatch(userActions.logout());
   };
 
-  console.log(cartItemQty);
-
   return (
     <div>
       {showSearchBox && (
