@@ -37,9 +37,8 @@ const OrderDetailDialog = ({ open, handleClose }) => {
         </p>
         <p>
           연락처:
-          {`${
-            selectedOrder.contact.firstName + selectedOrder.contact.lastName
-          } ${selectedOrder.contact.contact}`}
+          {`${selectedOrder.contact.firstName + selectedOrder.contact.lastName
+            } ${selectedOrder.contact.contact}`}
         </p>
         <p>주문내역</p>
         <div className="overflow-x">
