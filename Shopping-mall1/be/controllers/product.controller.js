@@ -85,8 +85,9 @@ productController.checkStock = async (item) => {
 
     const newStock = { ...product.stock };
     newStock[item.size] -= item.qty;
+    console.log("newStock", newStock);
     product.stock = newStock;
-
+    console.log("product", product);
     await product.save();
 
     return { isVerify: true };
@@ -102,7 +103,7 @@ productController.checkItemListStock = async (itemList) => {
             if (!stockCheck.isVerify) {
                 insufficientStockItems.push({ item, message: stockCheck.message });
             }
-
+            console.log("stockCheck", stockCheck);
             return stockCheck;
         })
     );
@@ -113,8 +114,8 @@ productController.checkItemListStock = async (itemList) => {
 productController.updateStock = async (item) => {
     // 내가 사려는 제품 재고 정보 들고 오기
     const product = await Product.findById(item.productId);
-
     const newStock = { ...product.stock };
+    console.log("newStock", newStock);
     newStock[item.option] -= item.qty;
     product.stock = newStock;
     await product.save();

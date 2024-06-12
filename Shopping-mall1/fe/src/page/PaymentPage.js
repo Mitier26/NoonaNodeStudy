@@ -53,7 +53,7 @@ const PaymentPage = () => {
       }),
     };
 
-    dispatch(orderActions.createOrder(data));
+    dispatch(orderActions.createOrder(data, navigate));
   };
 
   const handleFormChange = (event) => {
@@ -167,7 +167,7 @@ const PaymentPage = () => {
                   <Button
                     variant="dark"
                     className="payment-button"
-                    onClick={() => navigate("/payment")}
+                    type="submit"
                   >
                     결제 계속하기
                   </Button>
