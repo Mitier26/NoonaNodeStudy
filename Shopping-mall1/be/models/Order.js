@@ -22,7 +22,7 @@ const orderSchema = Schema({
     },
     status: {
         type: String,
-        default: "뭐지?",
+        default: "preparing",
     },
     items: [{
         productId: { type: mongoose.ObjectId, ref: Product },

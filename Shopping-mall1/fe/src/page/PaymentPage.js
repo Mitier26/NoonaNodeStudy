@@ -6,12 +6,13 @@ import "../style/paymentPage.style.css";
 import { useSelector, useDispatch } from "react-redux";
 import { orderActions } from "../action/orderAction";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { commonUiActions } from "../action/commonUiAction";
 import { cc_expires_format } from "../utils/number";
 
 const PaymentPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [cardValue, setCardValue] = useState({
     cvc: "",
@@ -30,26 +31,56 @@ const PaymentPage = () => {
     city: "",
     zip: "",
   });
-
   //맨처음 페이지 로딩할때는 넘어가고  오더번호를 받으면 성공페이지로 넘어가기
+
+  const { cartList, totalPrice } = useSelector((state) => state.cart);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //오더 생성하가ㅣ
+    //오더 생성하기
+    const { firstName, lastName, contact, address, city, zip } = shipInfo;
+    const data = {
+      totalPrice,
+      shipTo: { address, city, zip },
+      contact: { firstName, lastName, contact },
+      orderList: cartList.map(item => {
+        return {
+          productId: item.productId._id,
+          price: item.productId.price,
+          qty: item.qty,
+          size: item.size,
+        };
+      }),
+    };
+
+    dispatch(orderActions.createOrder(data));
   };
 
   const handleFormChange = (event) => {
     //shipInfo에 값 넣어주기
+    const { name, value } = event.target;
+    setShipInfo({ ...shipInfo, [name]: value });
   };
 
   const handlePaymentInfoChange = (event) => {
     //카드정보 넣어주기
+    const { name, value } = event.target;
+    if (name === "expiry") {
+      let newValue = cc_expires_format(value);
+      setCardValue({ ...cardValue, [name]: newValue });
+      return;
+    }
+    setCardValue({ ...cardValue, [name]: value });
   };
 
   const handleInputFocus = (e) => {
     setCardValue({ ...cardValue, focus: e.target.name });
   };
   //카트에 아이템이 없다면 다시 카트페이지로 돌아가기 (결제할 아이템이 없으니 결제페이지로 가면 안됌)
+
+  if (cartList.length === 0) {
+    navigate("/cart");
+  }
   return (
     <Container>
       <Row>
@@ -120,25 +151,33 @@ const PaymentPage = () => {
                   </Form.Group>
                 </Row>
                 <div className="mobile-receipt-area">
-                  {/* <OrderReceipt /> */}
+                  <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
                 </div>
                 <div>
                   <h2 className="payment-title">결제 정보</h2>
+
+                  <PaymentForm cardValue={cardValue} handleInputFocus={handleInputFocus} handlePaymentInfoChange={handlePaymentInfoChange} />
                 </div>
 
-                <Button
-                  variant="dark"
-                  className="payment-button pay-button"
-                  type="submit"
-                >
-                  결제하기
-                </Button>
+                {/* 삼항필요없다.
+                  페이지가 /cart 페이지일 경우가 들어가 있다.
+                */}
+
+                {cartList.length > 0 && (
+                  <Button
+                    variant="dark"
+                    className="payment-button"
+                    onClick={() => navigate("/payment")}
+                  >
+                    결제 계속하기
+                  </Button>
+                )}
               </Form>
             </div>
           </div>
         </Col>
         <Col lg={5} className="receipt-area">
-          {/* <OrderReceipt /> */}
+          <OrderReceipt cartList={cartList} totalPrice={totalPrice} />
         </Col>
       </Row>
     </Container>

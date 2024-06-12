@@ -29,7 +29,7 @@ cartController.addItemToCart = async (req, res) => {
         res.status(200).json({ status: "카트 등록 성공", data: cart, cartItemQty: cart.items.length });
 
     } catch (error) {
-        res.status(400).json({ status: "실패", error: error.message });
+        return res.status(400).json({ status: "실패", error: error.message });
     }
 }
 
@@ -48,7 +48,7 @@ cartController.getCart = async (req, res) => {
         );
         res.status(200).json({ status: "성공", data: cart.items })
     } catch (error) {
-        res.status(400).json({ status: "실패", error: error.message });
+        return res.status(400).json({ status: "실패", error: error.message });
     }
 }
 

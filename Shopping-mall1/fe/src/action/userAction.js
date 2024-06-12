@@ -2,6 +2,7 @@ import api from "../utils/api";
 import * as types from "../constants/user.constants";
 import { commonUiActions } from "./commonUiAction";
 import * as commonTypes from "../constants/commonUI.constants";
+
 const loginWithToken = () => async (dispatch) => {
   try {
     dispatch({ type: types.LOGIN_WITH_TOKEN_REQUEST });
@@ -10,7 +11,7 @@ const loginWithToken = () => async (dispatch) => {
     dispatch({ type: types.LOGIN_WITH_TOKEN_SUCCESS, payload: response.data })
   } catch (error) {
     dispatch({ type: types.LOGIN_WITH_TOKEN_FAIL });
-    dispatch(logout);
+    dispatch(logout());
   }
 };
 
